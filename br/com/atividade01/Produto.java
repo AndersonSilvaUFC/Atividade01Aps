@@ -52,6 +52,10 @@ public class Produto{
         return this.descricao;
     }
 
+    public int getQuantidadeEstoque(){
+        return this.quantidadeEstoque;
+    }
+
     public double getValorCompra(){
         return this.valorCompra;
     }

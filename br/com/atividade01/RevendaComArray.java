@@ -18,35 +18,42 @@ public class RevendaComArray{
         indice++;
     }
 
-    public void comprar(int codigo, int quantidade){
+    public boolean comprar(int codigo, int quantidade){
         for(Produto p : produtos){
             if(p != null){
                 if(p.getCodigo() == codigo){
                     p.compra(quantidade);
-                    return;
+                    return true;
                 }
             }
         }
         System.out.println("Erro: o produto não existe.");
+        return false;
     }
 
-    public void vender(int codigo, int quantidade){
+    public boolean vender(int codigo, int quantidade){
         for(Produto p : produtos){
             if(p != null){
                 if(p.getCodigo() == codigo){
-                    p.venda(quantidade);
-                    return;
+                    if(p.getQuantidadeEstoque() - quantidade >= 0){
+                        p.venda(quantidade);
+                        return true;
+                    }else{
+                        System.out.println("Quantidade em estoque insuficiente para venda.");
+                        return false;
+                    }
                 }
             }
         }
         System.out.println("Erro: o produto não existe.");
+        return false;
     }
 
     public void consultaPrecoVenda(int codigo){
         for(Produto p : produtos){
             if(p != null){
                 if(p.getCodigo() == codigo){
-                    System.out.println(p.calculaPrecoVenda());
+                    System.out.println("Preço de venda: " + p.calculaPrecoVenda());
                     return;
                 }
             }
@@ -63,6 +70,17 @@ public class RevendaComArray{
                 System.out.println();
             }
         }
+    }
+
+    public Produto buscaProduto(int codigo){
+        for(Produto p : produtos){
+            if(p != null){
+                if(p.getCodigo() == codigo){
+                    return p;
+                }
+            }
+        }
+        return null;
     }
 
 }
